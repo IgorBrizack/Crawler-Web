@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  news:
+    build: ./backend
+    image: crawler_web
+    volumes:
+      - ./backend:/app
+    container_name: crawler_web_backend
+    tty: true # docker run -t 
+    stdin_open: true # docker run -i
+    command: bash
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    environment:
+      - DB_HOST=mongodb
+    networks:
+      - crawler_web_net
+    ports:
+      - 8000:8000
+
+  mongodb:
+    image: mongo:4.4.14
+    container_name: crawler_web_db
+    volumes:
+      - ./:/app
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    networks:
+      - crawler_web_net
+
+networks:
+  crawler_web_net:
+    driver: bridge
