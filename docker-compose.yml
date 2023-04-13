@@ -9,9 +9,10 @@ services:
     platform: linux/x86_64
     working_dir: /app-frontend
     depends_on:
-      - backend: 
+      - backend
     networks:
       - crawler_web_net
+
   backend:
     build: ./backend
     image: crawler_web
