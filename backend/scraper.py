@@ -1,7 +1,6 @@
 import requests as _requests
 from requests.exceptions import ReadTimeout, ConnectionError, HTTPError
 import bs4 as _bs4
-import time
 
 # https://lista.mercadolivre.com.br/geladeira#D[A:geladeira]
 # https://www.buscape.com.br/search?q=geladeira
@@ -17,17 +16,16 @@ def fetch(url: str):
     return page.text
 
 
-def generate_url(web_site: str, product: str):
-    if web_site == "mercadolivre":
+def generate_url(website: str, product: str):
+    if website == "mercadolivre":
         url = f"https://lista.mercadolivre.com.br/{product}#D[A:{product}]"
         return url
-    else:
+    elif website == "buscape":
         url = f"https://www.buscape.com.br/search?q={product}"
         return url
 
 
 def meli_layout_grid(content, type):
-    # print(content)
     list_of_products_data = []
 
     for product in content:
@@ -56,7 +54,6 @@ def meli_layout_grid(content, type):
         list_of_products_data.append(product_dict)
 
     return list_of_products_data
-
 
 
 def scrape_meli_products(url, type):
@@ -119,11 +116,11 @@ def scrape_buscape_products(url, type):
             "description": str(
                 product.find("h2", {"data-testid": "product-card::name"}).text
             ),
-            "image_link": str(product.find("img", {"data-nimg": "fill"})["src"]),
+            "image_link": str(product.find("div", class_ = 'SearchCard_ProductCard_Image__ffKkn').span.img['src']),
             "price": str(
                 product.find("p", {"data-testid": "product-card::price"}).text
             ),
-            "external_link": str(
+            "external_link": "https://www.buscape.com.br" + str(
                 product.find("a", {"data-testid": "product-card::card"})["href"]
             ),
         }
@@ -137,5 +134,5 @@ def manage_scrape(website: str, product: str):
     main_url = generate_url(website, product)
     if website == "mercadolivre":
         return scrape_meli_products(main_url, product)
-    else:
+    elif website == "buscape":
         return scrape_buscape_products(main_url, product)

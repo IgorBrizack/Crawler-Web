@@ -1,31 +1,66 @@
 import { useState, useEffect } from 'react'
-import { fetchProducts } from '../helpers/fetchProducts'
+import { postData } from '../services/request'
 
 export default function HomePage (){
   const [data, setData] = useState([])
-  const [website, setWebSite] = useState()
-  const [category, setCategory] = useState()
+  const [website, setWebSite] = useState("todas")
+  const [category, setCategory] = useState("televisão")
   const [inputSearch, setInputSearch] = useState()
-
+  
 
   const fetchAPI = async() => {
-    if(inputSearch) {
-      const result = await fetchProducts(inputSearch)
-      if (result !== 'You must provide an url') {
-        console.log(website)
-        setInputSearch("")
-        return setData(result.results)
-      }
+    if(inputSearch && website !== 'todas') {
+      const result = await postData('/product/get_products', {
+        "website": website,
+        "product_type": inputSearch
+      })
+      Array.from(document.querySelectorAll("input")).forEach(
+        input => (input.value = "")
+      );
+      setInputSearch("")
+      return setData(result.data[0])
     }
-    const result = await fetchProducts(category)
-      if (result !== 'You must provide an url') {
-        console.log(website)
-        return setData(result.results)
-      }
+
+    if(inputSearch && website === 'todas') {
+  
+      const resultMeli = await postData('/product/get_products', {
+        "website": 'mercadolivre',
+        "product_type": inputSearch
+      })
+      console.log(resultMeli)
+
+      const resultBuscape = await postData('/product/get_products', {
+        "website": 'buscape',
+        "product_type": inputSearch
+      })
+      Array.from(document.querySelectorAll("input")).forEach(
+        input => (input.value = "")
+      );
+      setInputSearch("")
+      return setData([...resultMeli.data[0], ...resultBuscape.data[0]])
+    } else if (!inputSearch && website !== 'todas') {
+      const result = await postData('/product/get_products', {
+        "website": website,
+        "product_type": category
+      })
+      return setData(result.data[0])
+    } else if (!inputSearch && website === 'todas') {
+      const resultMeli = await postData('/product/get_products', {
+        "website": 'mercadolivre',
+        "product_type": category
+      })
+      
+      const resultBuscape = await postData('/product/get_products', {
+        "website": 'buscape',
+        "product_type": category
+      })
+      setInputSearch("")
+      return setData([...resultMeli.data[0], ...resultBuscape.data[0]])
+    }
   }
 
   useEffect(() =>{
-
+  
   }, [data]) 
 
   return (
@@ -56,7 +91,7 @@ export default function HomePage (){
       <div style={{
         display:"flex",
         flexWrap:"wrap",
-        alignContent:"space-evenly"
+        alignContent:"space-evenly",
       }}>
         {data.length > 0 && (data.map((e) => {
           return (
@@ -66,20 +101,20 @@ export default function HomePage (){
               margin:"auto",
               display:"flex",
               flexDirection:"column",
-              alignItems:"center"
+              alignItems:"center",
             }}>
-            <h2 style={{fontSize:"20px", textAlign:"center"}}>{e.title}</h2>
-            <p>{`R$ ${e.price.toFixed(2)}`}</p>
+            <h2 style={{fontSize:"20px", textAlign:"center"}}>{e.description}</h2>
+            <p>{e.price}</p>
             <img style={{
               width:"150px",
               height:"250px"
             }}
-            src={e.thumbnail}
+            src={e.image_link}
             alt={e.title}/>
             <a 
               rel="noreferrer" 
               target='_blank' 
-              href={e.permalink} 
+              href={e.external_link} 
               style={{textDecoration:"none", color: "black"}}
             >Ir na web</a>
           </div>

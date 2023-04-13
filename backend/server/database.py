@@ -29,6 +29,7 @@ async def add_product(website: str, product: str):
             "id": str(prod["_id"]),
             "product_type": str(prod["product_type"]),
             "description": prod["description"],
+            "price": prod["price"],
             "website": prod["website"],
             "external_link": prod["external_link"],
             "image_link": prod['image_link']
@@ -53,6 +54,7 @@ async def get_products(website: str, product: str):
             "id": str(prod["_id"]),
             "product_type": str(prod["product_type"]),
             "description": prod["description"],
+            "price": prod["price"],
             "website": prod["website"],
             "external_link": prod["external_link"],
             "image_link": prod['image_link']
