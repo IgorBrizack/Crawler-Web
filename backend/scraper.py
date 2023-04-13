@@ -26,7 +26,7 @@ def generate_url(web_site: str, product: str):
         return url
 
 
-def scrape_meli_products(url):
+def scrape_meli_products(url, type):
     html_content = fetch(url)
     content_parser = _bs4.BeautifulSoup(html_content, "html.parser")
     result = content_parser.find_all(
@@ -37,8 +37,9 @@ def scrape_meli_products(url):
 
     for product in result:
         product_dict = {
-            "web_site": "Mercado Livre",
-            "descriptions": str(
+            "website": "Mercado Livre",
+            "product_type": type,
+            "description": str(
                 product.find(
                     "h2", class_="ui-search-item__title shops__item-title"
                 ).text
@@ -46,8 +47,9 @@ def scrape_meli_products(url):
             "image_link": str(
                 product.div.div.div.a.div.div.div.div.div.img["data-src"]
             ),
-            "price": 'R$ ' + (
-                ( 
+            "price": "R$ "
+            + (
+                (
                     str(
                         product.find(
                             "span",
@@ -64,24 +66,19 @@ def scrape_meli_products(url):
     return list_of_products_data
 
 
-def scrape_buscape_products(url):
-    class_text = 'Paper_Paper__HIHv0 Paper_Paper__bordered__iuU_5 Card_Card__LsorJ Card_Card__clicable__5y__P SearchCard_ProductCard__1D3ve'
+def scrape_buscape_products(url, type):
+    class_text = "Paper_Paper__HIHv0 Paper_Paper__bordered__iuU_5 Card_Card__LsorJ Card_Card__clicable__5y__P SearchCard_ProductCard__1D3ve"
     html_content = fetch(url)
     content_parser = _bs4.BeautifulSoup(html_content, "html.parser")
     result = content_parser.find_all("div", class_={class_text})
-
-    # print(result[0].find("h2", {"data-testid": "product-card::name"}).text)
-    # print(result[0].find("img", {"data-nimg": "fill"})["src"])
-    # print(result[0].find("p", {"data-testid": "product-card::price"}).text)
-    # print(result[0].find("a", {"data-testid": "product-card::card"})["href"])
-    # print(result)
 
     list_of_products_data = []
 
     for product in result:
         product_dict = {
-            "web_site": "Busca Pé",
-            "descriptions": str(
+            "website": "Busca Pé",
+            "product_type": type,
+            "description": str(
                 product.find("h2", {"data-testid": "product-card::name"}).text
             ),
             "image_link": str(product.find("img", {"data-nimg": "fill"})["src"]),
@@ -98,14 +95,9 @@ def scrape_buscape_products(url):
     return list_of_products_data
 
 
-def manage_scrape(web_site: str, product: str):
-    main_url = generate_url(web_site, product)
-    if web_site == "mercadolivre":
-        print(scrape_meli_products(main_url))
-        return
+def manage_scrape(website: str, product: str):
+    main_url = generate_url(website, product)
+    if website == "mercadolivre":
+        return scrape_meli_products(main_url, product)
     else:
-        print(scrape_buscape_products(main_url))
-        return
-
-
-manage_scrape("buscape", "geladeira")
+        return scrape_buscape_products(main_url, product)

@@ -1,6 +1,6 @@
 from typing import Optional
-
 from pydantic import BaseModel, EmailStr, Field
+
 
 class StudentSchema(BaseModel):
     fullname: str = Field(...)
@@ -13,6 +13,7 @@ class StudentSchema(BaseModel):
                 "email": "jdow@mail.com"
             }
         }
+
 
 class UpdateStudentModel(BaseModel):
     fullname: Optional[str]
