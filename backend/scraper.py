@@ -26,12 +26,40 @@ def generate_url(web_site: str, product: str):
         return url
 
 
+def meli_layout_grid(content, type):
+    # print(content)
+    list_of_products_data = []
+
+    for product in content:
+        product_dict = {
+            "website": "Mercado Livre",
+            "product_type": type,
+            "description": str(
+                product.find(
+                    "h2", class_="ui-search-item__title shops__item-title"
+                ).text
+            ),
+            "image_link": str((product.find("div", class_="slick-slide slick-active").img['data-src'])),
+            "price": "R$ ",
+            "external_link": str(product.find("a", class_="ui-search-link")["href"]),
+        }
+        list_of_products_data.append(product_dict)
+
+    return list_of_products_data
+
+
+
 def scrape_meli_products(url, type):
     html_content = fetch(url)
     content_parser = _bs4.BeautifulSoup(html_content, "html.parser")
     result = content_parser.find_all(
         "li", class_="ui-search-layout__item shops__layout-item"
     )
+
+    result_layout_grid = content_parser.find_all('ol', class_ = 'ui-search-layout ui-search-layout--grid')
+
+    if result_layout_grid:
+        return meli_layout_grid(result_layout_grid, type)
 
     list_of_products_data = []
 
@@ -98,6 +126,10 @@ def scrape_buscape_products(url, type):
 def manage_scrape(website: str, product: str):
     main_url = generate_url(website, product)
     if website == "mercadolivre":
+        print(scrape_meli_products(main_url, product))
         return scrape_meli_products(main_url, product)
     else:
         return scrape_buscape_products(main_url, product)
+    
+
+manage_scrape('mercadolivre', 'ssd')

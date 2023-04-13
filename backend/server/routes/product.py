@@ -18,8 +18,15 @@ from server.models.product import (
 
 router = APIRouter()
 
-@router.post("/", response_description="Product Data")
+@router.post("/", response_description="Insert Products Data")
 async def add_products_data(product: ProductSchema = Body(...)):
     products = jsonable_encoder(product)
     new_products = await add_product(products["website"], products['product_type'])
     return ResponseModel(new_products, "Student added sccessfully")
+
+
+@router.get("/", response_description="Search for Products")
+async def get_products_data(product: ProductSchema = Body(...)):
+    products =  jsonable_encoder(product)
+    data_products = await get_products(prod["website"], products['product_type'])
+    return

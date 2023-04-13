@@ -17,6 +17,11 @@ database_products = client.products
 students_collection = database.get_collection("students_collection")
 products_collection = database_products.get_collection("products_collection")
 
+website_helper = {
+        "mercadolivre": 'Mercado Livre',
+        "buscape": 'Busca Pé'
+    }
+
 # async def product_helper(products) -> 'list[dict]':
 #     products_list = []
 
@@ -53,7 +58,7 @@ async def add_product(website: str, product: str):
     scrape_data = manage_scrape(website, product)
 
     await products_collection.insert_many(scrape_data)
-    new_products = products_collection.find({"website": "Mercado Livre"})
+    new_products = products_collection.find({"website": website_helper[website]})
 
     products_list = []
 
@@ -66,8 +71,29 @@ async def add_product(website: str, product: str):
             "external_link": prod["external_link"],
             "image_link": prod['image_link']
         })
+
+
+    return products_list
+
+async def get_products(website: str, product: str):
+    products_data = products_collection.find({"website": website_helper[website], "product_type": product})
+
+    if not products_data:
+        data = add_product(website, product)
+        return data
     
-    print(products_list)
+    print('chegando aqui')
+    products_list = []
+
+    for prod in await products_data.to_list(length=1000):
+        products_list.append({
+            "id": str(prod["_id"]),
+            "product_type": str(prod["product_type"]),
+            "description": prod["description"],
+            "website": prod["website"],
+            "external_link": prod["external_link"],
+            "image_link": prod['image_link']
+        })
 
     return products_list
 
