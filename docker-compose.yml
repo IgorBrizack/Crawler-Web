@@ -21,7 +21,7 @@ services:
       - 8000:8000
 
   mongodb:
-    image: mongo:4.4.14
+    image: mongo:5.0.6
     container_name: crawler_web_db
     volumes:
       - ./:/app
