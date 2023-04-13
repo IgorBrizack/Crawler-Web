@@ -40,7 +40,17 @@ def meli_layout_grid(content, type):
                 ).text
             ),
             "image_link": str((product.find("div", class_="slick-slide slick-active").img['data-src'])),
-            "price": "R$ ",
+            "price": "R$ "
+            + (
+                (
+                    str(
+                        product.find(
+                            "span",
+                            class_="price-tag ui-search-price__part shops__price-part",
+                        ).text,
+                    )
+                ).split(" ")
+            )[0],
             "external_link": str(product.find("a", class_="ui-search-link")["href"]),
         }
         list_of_products_data.append(product_dict)
@@ -126,10 +136,6 @@ def scrape_buscape_products(url, type):
 def manage_scrape(website: str, product: str):
     main_url = generate_url(website, product)
     if website == "mercadolivre":
-        print(scrape_meli_products(main_url, product))
         return scrape_meli_products(main_url, product)
     else:
         return scrape_buscape_products(main_url, product)
-    
-
-manage_scrape('mercadolivre', 'ssd')

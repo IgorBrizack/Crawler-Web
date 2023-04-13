@@ -58,7 +58,7 @@ async def add_product(website: str, product: str):
     scrape_data = manage_scrape(website, product)
 
     await products_collection.insert_many(scrape_data)
-    new_products = products_collection.find({"website": website_helper[website]})
+    new_products = products_collection.find({"website": website_helper[website], "product_type": product})
 
     products_list = []
 
