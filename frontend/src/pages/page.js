@@ -65,9 +65,6 @@ export default function HomePage (){
 
   return (
     <div>
-      <h1>
-        iniciando
-      </h1>
       <label htmlFor="website">
             Website:
             <select  onClick={(e) => setWebSite(e.target.value)} name="website">
@@ -92,31 +89,40 @@ export default function HomePage (){
         display:"flex",
         flexWrap:"wrap",
         alignContent:"space-evenly",
+        justifyContent: "center",
+        backgroundColor: "gray"
       }}>
         {data.length > 0 && (data.map((e) => {
           return (
-          <div key={e.id} style={{
+            <div key={e.id} style={{
+              padding: "5px",
               width:"300px",
-              height:"400px",
-              margin:"auto",
+              borderRadius: '5px',
+              height:"450px",
+              margin:"5px",
               display:"flex",
               flexDirection:"column",
+              alignContent:"space-evenly",
               alignItems:"center",
+              justifyContent: "center",
+              backgroundColor: "white"
             }}>
             <h2 style={{fontSize:"20px", textAlign:"center"}}>{e.description}</h2>
             <p>{e.price}</p>
             <img style={{
-              width:"150px",
-              height:"250px"
+              width:"120px",
+              height:"180px",              
             }}
             src={e.image_link}
             alt={e.title}/>
-            <a 
-              rel="noreferrer" 
-              target='_blank' 
-              href={e.external_link} 
-              style={{textDecoration:"none", color: "black"}}
-            >Ir na web</a>
+            <button type='button'>
+              <a 
+                rel="noreferrer" 
+                target='_blank' 
+                href={e.external_link} 
+                style={{textDecoration:"none", color: "black", fontSize: "15px"}}
+              >Ir na web</a>
+            </button>            
           </div>
           )
         }))}
