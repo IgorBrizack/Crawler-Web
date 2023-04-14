@@ -23,13 +23,15 @@ Instale as dependências
 
 - `python3 -m pip install -r dev-requirements.txt`
 
-- Caso queira rodar o backend dentro container, acesse o bash do container e execute `python3 main.py`
+Caso queira rodar o backend dentro container, 
+acesse o bash do container e execute `python3 main.py`
 
-- Caso queira rodar o backend fora do container, pare a execução do container e execute dentro do diretório `python3 main.py`
+Caso queira rodar o backend fora do container, pare a execução do 
+container e execute dentro do diretório `python3 main.py`
 
-- Caso esteja rodando no container basta acessar localhost:3000
+Caso esteja rodando no container basta acessar localhost:3000
 
-- Se não siga os passos abaixo:
+Se não siga os passos abaixo:
 
 cd .. 
 
