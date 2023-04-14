@@ -57,7 +57,7 @@ Caso não possua o docker e opte por rodar direto na sua máquina:
 </details>
 
 <details>
-<summary><strong> :bulb: Dicas</strong></summary><br />
+<summary><strong> ⚠️ ATENÇÃO!! ⚠️ </strong></summary><br />
 
  A aplicação pode demorar um pouco de responder caso seja acessado ao endpoit do deploy.
 
