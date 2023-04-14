@@ -1,9 +1,22 @@
-version: "3"
+version: '3.9'
 
 services:
-  news:
+  frontend:
+    container_name: app_frontend    
+    build: ./frontend
+    ports:
+      - 3000:3000
+    platform: linux/x86_64
+    working_dir: /app-frontend
+    depends_on:
+      - backend
+    networks:
+      - crawler_web_net
+
+  backend:
     build: ./backend
     image: crawler_web
+    platform: linux/x86_64
     volumes:
       - ./backend:/app
     container_name: crawler_web_backend
@@ -21,7 +34,7 @@ services:
       - 8000:8000
 
   mongodb:
-    image: mongo:4.4.14
+    image: mongo:5.0.6
     container_name: crawler_web_db
     volumes:
       - ./:/app
