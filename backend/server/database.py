@@ -1,9 +1,12 @@
 # biblioteca para lidar com chamadas asyncronas no mongo
+import os
 import motor.motor_asyncio
 
 from scraper import manage_scrape
 
-MONGO_DETAILS = "mongodb://crawler_web_db:27017"
+# "mongodb://crawler_web_db:27017" URL for container development
+
+MONGO_DETAILS = os.environ.get('MONGO_URL')
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
 
