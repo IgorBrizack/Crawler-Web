@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { postData } from '../services/request'
+import '../bootstrap.min.css'
 
 export default function HomePage (){
   const [data, setData] = useState([])
@@ -64,27 +65,48 @@ export default function HomePage (){
   }, [data]) 
 
   return (
-    <div>
-      <label htmlFor="website">
-            Website:
-            <select  onClick={(e) => setWebSite(e.target.value)} name="website">
-              <option value="todas">Todas</option>
-              <option value="mercadolivre">Mercado Livre</option>
-              <option value="buscape">Busca Pé</option>
-            </select>
-      </label>
+    <>
+      <div style={{
+        width:"700px",
+        display: 'flex',
+        height: "50px",
+        marginTop: "5px",
+        marginBottom: "5px",
+        justifyContent: 'space-around',
+        alignItems: 'center'
+      }}>
+        <select 
+          style={{width: "160px"}}
+          className='form-select'
+          onClick={(e) => setWebSite(e.target.value)}
+          name="website">
+          <option value="todas">Todas</option>
+          <option value="mercadolivre">Mercado Livre</option>
+          <option value="buscape">Busca Pé</option>
+        </select>
+        <select 
+          style={{width: "100px"}}
+          className='form-select'
+          onClick={(e) => setCategory(e.target.value)} 
+          name="category">
+          <option value="televisao">Televisão</option>
+          <option value="geladeira">Geladeira</option>
+          <option value="celular">Celular</option>
+        </select>
+        
+        <div 
+          className="input-group mb-3" 
+          style={{width: "320px", marginTop: "15px"}}>
+          <span className="input-group-text" id="basic-addon1">Pesquisar por:</span>
+          <input 
+          className="form-control" 
+          placeholder='Produto' 
+          onChange={(e) => setInputSearch(e.target.value)}></input>
+        </div>
+        
+        <button className="btn btn-primary" type='button' onClick={() => fetchAPI()}>Buscar</button>
+      </div>
 
-      <label htmlFor="category">
-            Categorias:
-            <select  onClick={(e) => setCategory(e.target.value)} name="category">
-              <option value="televisao">Televisão</option>
-              <option value="geladeira">Geladeira</option>
-              <option value="celular">Celular</option>
-            </select>
-      </label>
-
-      <input placeholder='Pesquisar por ...' onChange={(e) => setInputSearch(e.target.value)}></input>
-      <button type='button' onClick={() => fetchAPI()}>Buscar</button>
       <div style={{
         display:"flex",
         flexWrap:"wrap",
@@ -94,7 +116,8 @@ export default function HomePage (){
       }}>
         {data.length > 0 && (data.map((e) => {
           return (
-            <div key={e.id} style={{
+          <div
+            key={e.id} style={{
               padding: "5px",
               width:"300px",
               borderRadius: '5px',
@@ -127,6 +150,6 @@ export default function HomePage (){
           )
         }))}
       </div>
-    </div>
+    </>
   )
 }
