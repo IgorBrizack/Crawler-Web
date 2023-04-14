@@ -5,8 +5,9 @@ import motor.motor_asyncio
 from scraper import manage_scrape
 
 # "mongodb://crawler_web_db:27017" URL for container development
+# os.environ.get('MONGO_URL')
 
-MONGO_DETAILS = os.environ.get('MONGO_URL')
+MONGO_DETAILS = 'mongodb://crawler_web_db:27017'
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
 
