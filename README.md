@@ -63,7 +63,7 @@ Caso não possua o docker e opte por rodar direto na sua máquina:
 
  1º motivo: A raspagem de dados e armazenamento podem demorar devido a distância dos servidores e execução da chamada da API.
 
- 2º motivo: O container que hospeda o backend pode estar em standby, ele irá ativar novamente após a primeira chamada.
+ 2º motivo: O container que hospeda o backend pode estar em standby, ele irá ativar novamente após a primeira chamada, isso pode levar alguns segundos.
 
  Acesso a aplicação:
  - https://crawler-web-frontend.vercel.app/
