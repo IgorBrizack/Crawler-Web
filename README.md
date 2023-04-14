@@ -59,7 +59,7 @@ Caso não possua o docker e opte por rodar direto na sua máquina:
 <details>
 <summary><strong> :bulb: Dicas</strong></summary><br />
 
- - A aplicação pode demorar um pouco de responder caso seja acessado ao endpoit do deploy.
+ A aplicação pode demorar um pouco de responder caso seja acessado ao endpoit do deploy.
 
  1º motivo: A raspagem de dados e armazenamento podem demorar devido a distância dos servidores e execução da chamada da API.
 
