@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { postData } from '../services/request'
+import { postData, getData } from '../services/request'
 import '../bootstrap.min.css'
 
 export default function HomePage (){
@@ -10,11 +10,10 @@ export default function HomePage (){
   
 
   const fetchAPI = async() => {
+    let product_type = inputSearch
+
     if(inputSearch && website !== 'todas') {
-      const result = await postData('/product/get_products', {
-        "website": website,
-        "product_type": inputSearch
-      })
+      const result = await getData(`/product/get_products/${website}/${product_type}`, )
       Array.from(document.querySelectorAll("input")).forEach(
         input => (input.value = "")
       );
@@ -24,37 +23,27 @@ export default function HomePage (){
 
     if(inputSearch && website === 'todas') {
   
-      const resultMeli = await postData('/product/get_products', {
-        "website": 'mercadolivre',
-        "product_type": inputSearch
-      })
-      console.log(resultMeli)
+      const resultMeli = await getData(`/product/get_products/mercadolivre/${inputSearch}`)
 
-      const resultBuscape = await postData('/product/get_products', {
-        "website": 'buscape',
-        "product_type": inputSearch
-      })
+      const resultBuscape = await getData(`/product/get_products/buscape/${inputSearch}`)
+
       Array.from(document.querySelectorAll("input")).forEach(
         input => (input.value = "")
       );
+
       setInputSearch("")
+
       return setData([...resultMeli.data[0], ...resultBuscape.data[0]])
+
     } else if (!inputSearch && website !== 'todas') {
-      const result = await postData('/product/get_products', {
-        "website": website,
-        "product_type": category
-      })
+
+      const result = await getData(`/product/get_products/${website}/${category}`)
       return setData(result.data[0])
+
     } else if (!inputSearch && website === 'todas') {
-      const resultMeli = await postData('/product/get_products', {
-        "website": 'mercadolivre',
-        "product_type": category
-      })
+      const resultMeli = await getData(`/product/get_products/mercadolivre/${category}`)
       
-      const resultBuscape = await postData('/product/get_products', {
-        "website": 'buscape',
-        "product_type": category
-      })
+      const resultBuscape = await getData(`/product/get_products/buscape/${category}`)
       setInputSearch("")
       return setData([...resultMeli.data[0], ...resultBuscape.data[0]])
     }
@@ -85,7 +74,7 @@ export default function HomePage (){
           <option value="buscape">Busca Pé</option>
         </select>
         <select 
-          style={{width: "100px"}}
+          style={{width: "120px"}}
           className='form-select'
           onClick={(e) => setCategory(e.target.value)} 
           name="category">
@@ -138,13 +127,17 @@ export default function HomePage (){
             }}
             src={e.image_link}
             alt={e.title}/>
-            <button type='button'>
+            <button style={{
+                marginTop: '5px',
+                borderRadius: '5px',
+                fontWeight: 'bold'
+            }} type='button'>
               <a 
                 rel="noreferrer" 
                 target='_blank' 
                 href={e.external_link} 
                 style={{textDecoration:"none", color: "black", fontSize: "15px"}}
-              >Ir na web</a>
+              >Comprar</a>
             </button>            
           </div>
           )
