@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getData } from '../services/request'
+import gitHub from '../github.png'
 import '../bootstrap.min.css'
 
 export default function HomePage (){
@@ -55,7 +56,7 @@ export default function HomePage (){
   return (
     <>
       <div style={{
-        width:"700px",
+        width:"900px",
         display: 'flex',
         height: "50px",
         marginTop: "5px",
@@ -93,6 +94,23 @@ export default function HomePage (){
         </div>
         
         <button className="btn btn-primary" type='button' onClick={() => fetchAPI()}>Buscar</button>
+        <a 
+        rel="noreferrer" 
+        target='_blank' 
+        href='https://github.com/IgorBrizack/Crawler-Web' 
+        style={{
+          textDecoration: 'None',
+          fontWeight:'bold',
+          border: '1px solid black',
+          padding: '2px',
+          borderRadius: '3px',
+          backgroundColor:'#F5EBFF'
+          
+        }}><img style={{
+          width:"40px",
+          height:"40px",              
+        }} alt='repository' src={gitHub} /><span>Repositório</span></a>
+        
       </div>
 
       <div style={{
@@ -137,10 +155,10 @@ export default function HomePage (){
                 href={e.external_link} 
                 style={{textDecoration:"none", color: "black", fontSize: "15px"}}
               >Comprar</a>
-            </button>            
+            </button> 
           </div>
           )
-        }))}
+        }))}      
       </div>
     </>
   )
