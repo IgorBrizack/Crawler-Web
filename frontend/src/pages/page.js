@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
-import { postData, getData } from '../services/request'
+import { getData } from '../services/request'
 import '../bootstrap.min.css'
 
 export default function HomePage (){
   const [data, setData] = useState([])
   const [website, setWebSite] = useState("todas")
-  const [category, setCategory] = useState("televisão")
+  const [category, setCategory] = useState("televisao")
   const [inputSearch, setInputSearch] = useState()
-  
 
   const fetchAPI = async() => {
     let product_type = inputSearch
