@@ -1,6 +1,6 @@
 # Crawler web Full Stack
 
-O Crawler web Full Stack é um projeto feito para um desafio técnico de uma vaga. A ideia por trás desse projeto é a de desenvolver um Web Scraper capaz de coletar dados do Mercado Livre e do Buscapé, armazenar esses dados no banco de dados e caso fosse feito uma nova busca para os itens antes pesquisados essas informações deveria ser retornadas do banco de dados.
+O Crawler Web Full Stack é uma aplicação de raspagem de dados. A ideia por trás desse projeto é a de desenvolver um Web Scraper capaz de coletar dados do Mercado Livre e do Buscapé, armazenar esses dados no banco de dados e caso fosse feito uma nova busca para os itens antes pesquisados essas informações devem ser retornadas através dos dados pré existentes no banco de dados.
 
 ## 📋 Execute o projeto em sua máquina
 
@@ -73,14 +73,17 @@ Caso não possua o docker e opte por rodar direto na sua máquina:
 
 </details>
 
-## 🛠️ Ferramentas Utilizadas
+## 🛠️ Ferramentas Utilizadas & Deploy
 
-- [Node.js](https://nodejs.org/en/);
-- [Python3](https://www.python.org/);
-- [MongoDB](https://www.mongodb.com/);
-- [Fast API](https://fastapi.tiangolo.com/);
-- [Docker](https://www.docker.com/);
+- [Node.js](https://nodejs.org/en/)
+- [Python3](https://www.python.org/)
+- [MongoDB](https://www.mongodb.com/)
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [Docker](https://www.docker.com/)
 - [React](https://pt-br.reactjs.org/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Render](https://dashboard.render.com/)
+- [Vercel](https://vercel.com/)
 
 :beginner: Desenvolvido por [Igor Brizack](https://www.linkedin.com/in/igor-brizack/) 
 
