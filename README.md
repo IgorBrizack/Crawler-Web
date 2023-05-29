@@ -23,13 +23,15 @@ Instale as dependências
 
 - `python3 -m pip install -r dev-requirements.txt`
 
-- Caso queira rodar o backend dentro container, acesse o bash do container e execute `python3 main.py`
+Caso queira rodar o backend dentro container, 
+acesse o bash do container e execute `python3 main.py`
 
-- Caso queira rodar o backend fora do container, pare a execução do container e execute dentro do diretório `python3 main.py`
+Caso queira rodar o backend fora do container, pare a execução do 
+container e execute dentro do diretório `python3 main.py`
 
-- Caso esteja rodando no container basta acessar localhost:3000
+Se o Frontend estiver rodando no container basta acessar localhost:3000
 
-- Se não siga os passos abaixo:
+Se não siga os passos abaixo:
 
 cd .. 
 
@@ -55,13 +57,13 @@ Caso não possua o docker e opte por rodar direto na sua máquina:
 </details>
 
 <details>
-<summary><strong> :bulb: Dicas</strong></summary><br />
+<summary><strong> ⚠️ ATENÇÃO!! ⚠️ </strong></summary><br />
 
- - A aplicação pode demorar um pouco de responder caso seja acessado ao endpoit do deploy.
+ A aplicação pode demorar um pouco de responder caso seja acessado ao endpoit do deploy.
 
  1º motivo: A raspagem de dados e armazenamento podem demorar devido a distância dos servidores e execução da chamada da API.
 
- 2º motivo: O container que hospeda o backend pode estar em standby, ele irá ativar novamente após a primeira chamada.
+ 2º motivo: O container que hospeda o backend pode estar em standby, ele irá ativar novamente após a primeira chamada, isso pode levar alguns segundos.
 
  Acesso a aplicação:
  - https://crawler-web-frontend.vercel.app/
