@@ -15,13 +15,16 @@ docker-compose up -d
 
 cd backend
 
-Crie o ambiente virtual para o projeto
+Crie o ambiente virtual Python e acesse:
 
 - `python3 -m venv .venv && source .venv/bin/activate`
 
 Instale as dependências
 
 - `python3 -m pip install -r dev-requirements.txt`
+
+Crie o arquivo .env no diretório principal do seu Backend,
+insira MONGO_URL = "localhost:27017", isso permitirá que acesse o banco de dados.
 
 Caso queira rodar o backend dentro container, 
 acesse o bash do container e execute `python3 main.py`

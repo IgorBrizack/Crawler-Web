@@ -10,12 +10,6 @@ uri = os.environ.get('MONGO_URL')
 
 client = MongoClient(uri)
 
-# "mongodb://crawler_web_db:27017" URL for container development
-
-# MONGO_DETAILS = 'mongodb://crawler_web_db:27017'
-
-# client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
-
 db = client['products_data']
 
 products_collection = db['products']
