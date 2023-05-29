@@ -30,7 +30,7 @@ Caso queira rodar o backend dentro container,
 acesse o bash do container e execute `python3 main.py`
 
 Caso queira rodar o backend fora do container, pare a execução do 
-container e execute dentro do diretório `python3 main.py`
+container e execute através do terminal dentro do diretório do backend o comando `python3 main.py`
 
 Se o Frontend estiver rodando no container basta acessar localhost:3000
 
