@@ -26,7 +26,7 @@ Instale as dependências
 Crie o arquivo .env no diretório principal do seu Backend,
 insira MONGO_URL = "localhost:27017", isso permitirá que acesse o banco de dados.
 
-Caso queira rodar o backend dentro container, 
+Caso queira rodar o backend dentro do container, 
 acesse o bash do container e execute `python3 main.py`
 
 Caso queira rodar o backend fora do container, pare a execução do 
